@@ -1,0 +1,127 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cmath>
+//#include "stdafx.h"
+using namespace std;
+
+std::ifstream myfile;
+
+string binary(int a);
+int binary_decimal(string a);
+string extract_pg_num(string conv);
+string extract_pg_off(string conv);
+
+
+int main()
+{
+	string conv, pg_num, pg_off;
+	int pageTable[256][256];
+	char read;
+	int num, pgLook;
+	int value, i = 0;
+	
+	myfile.open("c:\\Users\\QCola\\Desktop\\BACKING_STORE.bin");
+	char c;
+	char * buffer = new char[8];
+
+	if (myfile)
+		cout << "my dope in the bush" << endl;
+	else
+		cout << "i know how to cook it" << endl;
+
+	myfile >> c;
+
+	myfile.seekg(0, myfile.end);
+	int length = myfile.tellg();
+	myfile.seekg(0, myfile.beg);
+
+	cout << "haha " << length << endl;
+
+	while (i < 1)
+	/{
+	//	/*cout << num;
+	//	num = read3;
+	//	cout << num;*/
+	//	cin >> num;
+	//	conv = binary(num);
+	//	cout << "Binary is: " << conv << endl;
+	//	pg_num = extract_pg_num(conv);
+	//	pg_off = extract_pg_off(conv);
+	//	int Dpg_num = binary_decimal(pg_num);
+	//	int Dpg_off = binary_decimal(pg_off);
+	//	cout << "Page Number (binary): " << pg_num << ", " << "Page Number (decimal): " << binary_decimal(pg_num) << endl;
+	//	cout << "Page Offset (binary): " << pg_off << ", " << "Page Offset (decimal): " << binary_decimal(pg_off) << endl;
+	//	//cout << "Number (again) is: " << binary_decimal(conv) << endl;
+	//	pgLook = Dpg_num * 256;
+	//	cout << "Start looking from " << pgLook << endl;
+	//	system("pause");
+
+	//	myfile.seekg(0, myfile.end);
+	//	int length = myfile.tellg();
+	//	myfile.seekg(0, myfile.beg);
+	//	//myfile.read(buffer, 1);
+	//	//myfile >> read;
+	//	//cout << '/n' << buffer << '/n';
+	//	cout << "bitches " << length;
+	//	//std::cout.write(buffer, 1);
+	//	//value = read;
+	//	pageTable[Dpg_num][Dpg_off] = buffer[0];
+	//	//cout << endl<<"Value stored in Page # " << Dpg_num << " and with offset " << Dpg_off << " is: " << pageTable[Dpg_num][Dpg_off];
+	//	i++;
+	//}
+	system("pause");
+
+	return 0;
+}
+
+string binary(int a) /*Function to convert decimal to binary*/
+{
+	string b = "";
+	int remainder = 0;
+	while (a > 0)
+	{
+		remainder = a % 2;
+		a /= 2;
+		if (remainder == 1)
+		{
+			b = "1" + b;
+		}
+		else
+		{
+			b = "0" + b;
+		}
+	}
+	while (b.length() < 16)
+	{
+		b = "0" + b;
+	}
+	return b;
+}
+
+int binary_decimal(string a) /*function to convert binary to decimal.*/
+{
+	int n = atoi(a.c_str());
+	int decimal = 0, i = 0, rem;
+	while (n != 0)
+	{
+		rem = n % 10;
+		n /= 10;
+		decimal += rem*pow(2, i);
+		++i;
+	}
+	return decimal;
+}
+
+string extract_pg_num(string conv)
+{
+	string A = "";
+	A = conv.substr(0, 8);
+	return A;
+}
+string extract_pg_off(string conv)
+{
+	string B = "";
+	B = conv.substr(8, 8);
+	return B;
+}
